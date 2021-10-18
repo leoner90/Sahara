@@ -3,25 +3,25 @@ import Home from '../views/Home.vue'
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/:catchAll(.*)",
+    component: Home,
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/About.vue')
-    }
-  }
+ 
+
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
+  history: createWebHistory(''),
+  routes,
+  scrollBehavior: function (to) {
+    let mystring = to.path.replace('/','');
+    if(mystring == '') {mystring = "Home"}
+    console.log(mystring)
+    var elmnt = document.getElementById(mystring);
+    elmnt.scrollIntoView();
+  },
 })
+
+ 
 
 export default router
